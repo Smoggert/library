@@ -10,9 +10,10 @@ class ExampleTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * @group unit
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+         $this->assertTrue(true);
     }
 }
