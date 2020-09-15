@@ -90,5 +90,24 @@ class BookReservationTest extends TestCase
 
         ]);
     }
+        
+    /** 
+      * @test 
+      * 
+     */
+    public function can_delete_book()
+    {
+        // Create an instance of 'book'
+        $this->post('/books', [
+            'title' => 'test_title',
+            'author' => 'test_author',
+        ]);  
+        // Fetch ID of created instance
+        $book = Book::first(); 
+        
+        // Delete the book
 
+        $this->delete('books/'.$book->id);
+        $this->assertDeleted($book);
+    }
 }
