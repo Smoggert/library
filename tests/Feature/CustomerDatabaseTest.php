@@ -20,18 +20,14 @@ class CustomerDatabaseTest extends TestCase
      */
     private function customerData(array $args = null)
     {
-        // This could be refactored into a function of factory, but rather not.
         $customer = Customer::factory()->make($args);
         return $customer->attributesToArray();
     }
 
-    private function bookData()
+    private function bookData(array $args = null)
     {
-        return 
-         [
-            'title' =>  'test_title',
-            'author' => 'test_author',
-         ];
+        $book = Book::factory()->make($args);
+        return $book->attributesToArray();
     }  
     /**
      *  @test
