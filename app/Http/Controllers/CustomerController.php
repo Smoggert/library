@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerUpdateRequest;
+use App\Http\Requests\CustomerCreateRequest;
 
 class CustomerController extends Controller
 {
@@ -34,9 +36,9 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerCreateRequest $request)
     {
-        Customer::create($this->validateCreateRequest($request));
+        Customer::create($request->toArray());
     }
 
     /**
@@ -68,9 +70,9 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerUpdateRequest $request, Customer $customer)
     {
-        $customer->update($this->validateUpdateRequest($request));
+        $customer->update($request->toArray());
     }
 
     public function associate(Customer $customer, Book $book)
@@ -94,25 +96,5 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-    }
-
-    protected function validateCreateRequest(Request $request)
-    {
-        return $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
-            'date_of_birth' => 'required|date'
-        ]);
-    }
-
-    protected function validateUpdateRequest(Request $request)
-    {
-        return $request->validate([
-            'name' => 'nullable',
-            'address' => 'nullable',
-            'email' => 'nullable|email',
-            'date_of_birth' => 'nullable|date'
-        ]);
     }
 }

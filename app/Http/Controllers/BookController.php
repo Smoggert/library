@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Http\Requests\BookUpdateRequest;
+use App\Http\Requests\BookCreateRequest;
 
 class BookController extends Controller
 {
@@ -33,9 +35,9 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookCreateRequest $request)
     {
-        Book::create($this->validateRequest($request));
+        Book::create($request->toArray());
     }
 
     /**
@@ -67,9 +69,9 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(BookUpdateRequest $request, Book $book)
     {
-        $book->update(['title' => ($request->title) ? $request->title: $book->title , 'author' => ($request->author) ? $request->author: $book->author]);
+        $book->update($request->toArray());
     }
 
     /**
@@ -81,13 +83,5 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-    }
-
-    protected function validateRequest(Request $request)
-    {
-        return $request->validate([
-            'title' => 'required',
-            'author' => 'required'
-        ]);
     }
 }
