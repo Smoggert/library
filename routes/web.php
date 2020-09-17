@@ -30,6 +30,9 @@ Route::post('/books',[BookController::class, 'store']);
 Route::patch('/books/{book}', [BookController::class, 'update']);
 Route::delete('/books/{book}', [BookController::class, 'destroy']);
 
+Route::post('books/{book}/{customer}', [BookController::class, 'associate']);
+Route::delete('books/{book}/{customer}', [BookController::class, 'dissociate']);
+
 /*
 |--------------------------------------------------------------------------
 | Customer Database Accessors
@@ -40,5 +43,3 @@ Route::post('/customers',[CustomerController::class, 'store']);
 Route::patch('/customers/{customer}', [CustomerController::class, 'update']);
 Route::delete('/customers/{customer}', [CustomerController::class, 'destroy']);
 
-Route::post('customers/{customer}/books/{book}', [CustomerController::class, 'associate']);
-Route::delete('customers/{customer}/books/{book}', [CustomerController::class, 'dissociate']);

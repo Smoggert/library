@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BookUpdateRequest;
 use App\Http\Requests\BookCreateRequest;
 
+use App\Models\Customer;
+
 class BookController extends Controller
 {
     /**
@@ -83,5 +85,17 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
+    }
+
+    public function associate(Book $book, Customer $customer)
+    {
+        $book->customer()->associate($customer);
+        $book->save();
+    }
+
+    public function dissociate(Book $book, Customer $customer)
+    {
+        $book->customer()->dissociate();
+        $book->save();
     }
 }

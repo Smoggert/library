@@ -75,18 +75,6 @@ class CustomerController extends Controller
         $customer->update($request->toArray());
     }
 
-    public function associate(Customer $customer, Book $book)
-    {
-        $book->customer()->associate($customer);
-        $book->save();
-    }
-
-    public function dissociate(Customer $customer, Book $book)
-    {
-        $book->customer()->dissociate();
-        $book->save();
-    }
-
     /**
      * Remove the specified resource from storage.
      *
