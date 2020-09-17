@@ -96,10 +96,7 @@ class BookDatabaseTest extends TestCase
     public function can_delete_book()
     {
         // Create an instance of 'book'
-        $this->post('books', [
-            'title' => 'test_title',
-            'author' => 'test_author',
-        ]);  
+        $this->post($this->bookData());  
         // Fetch ID of created instance
         $book = Book::first();
 
